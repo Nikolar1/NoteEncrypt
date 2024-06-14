@@ -1,4 +1,4 @@
-package com.nikolar.noteencrypt;
+package com.nikolar.noteencrypt.utils;
 
 import android.content.Context;
 import java.io.BufferedReader;

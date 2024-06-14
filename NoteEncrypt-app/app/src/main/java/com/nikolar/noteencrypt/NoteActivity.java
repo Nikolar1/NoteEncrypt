@@ -35,6 +35,7 @@ public class NoteActivity extends AppCompatActivity {
         }
 
         buttonSave.setOnClickListener(v -> {
+            logger.info("Save button clicked closing activity and returning result");
             String title = editTextTitle.getText().toString();
             String body = editTextBody.getText().toString();
 
