@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ШифрованныеЗаметки</string>
+    <string name="button_new_note">Новая заметка</string>
+    <string name="button_save">Сохранить</string>
+    <string name="edit_text_title_hint">Заголовок</string>
+    <string name="edit_text_body_hint">Текст заметки</string>
+</resources>
