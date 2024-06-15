@@ -5,4 +5,6 @@
     <string name="edit_text_title_hint">Titre</string>
     <string name="button_save">Enregistrer</string>
     <string name="edit_text_body_hint">Corps de la note</string>
+    <string name="enter_password">Entrez le mot de passe</string>
+    <string name="confirm">Confirmer</string>
 </resources>

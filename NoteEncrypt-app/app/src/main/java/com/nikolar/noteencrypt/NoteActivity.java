@@ -8,13 +8,17 @@ import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.nikolar.noteencrypt.model.Note;
+
+import java.util.Optional;
 import java.util.logging.Logger;
 
 public class NoteActivity extends AppCompatActivity {
 
     private EditText editTextTitle;
     private EditText editTextBody;
-    private String oldTitle;
+    private int position = -1;
+    private Note note;
     private Logger logger = Logger.getLogger("Note_Activity");
 
     @Override
@@ -22,28 +26,33 @@ public class NoteActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_note);
 
+        note = new Note("","");
         editTextTitle = findViewById(R.id.edit_text_title);
         editTextBody = findViewById(R.id.edit_text_body);
         Button buttonSave = findViewById(R.id.button_save);
 
         Intent intent = getIntent();
         logger.info("Checking if there is old note data to display");
-        if (intent.hasExtra("title") && intent.hasExtra("body")) {
-            oldTitle = intent.getStringExtra("title");
-            editTextTitle.setText(oldTitle);
-            editTextBody.setText(intent.getStringExtra("body"));
+        if (intent.hasExtra("note") && intent.hasExtra("position")) {
+            position = intent.getIntExtra("position", -1);
+            Optional<Note> noteOption = Note.fromString(intent.getStringExtra("note"));
+            if (noteOption.isPresent()) {
+                editTextTitle.setText(noteOption.get().getTitle());
+                editTextBody.setText(noteOption.get().getBody());
+            }else{
+                position = -1;
+            }
         }
 
         buttonSave.setOnClickListener(v -> {
             logger.info("Save button clicked closing activity and returning result");
-            String title = editTextTitle.getText().toString();
-            String body = editTextBody.getText().toString();
-
+            note.setTitle(editTextTitle.getText().toString());
+            note.setBody(editTextBody.getText().toString());
             Intent resultIntent = new Intent();
-            resultIntent.putExtra("title", title);
-            resultIntent.putExtra("body", body);
-            if (oldTitle != null) {
-                resultIntent.putExtra("oldTitle", oldTitle);
+            resultIntent.putExtra("note", note.toString());
+            ;
+            if (position != -1) {
+                resultIntent.putExtra("position", position);
             }
             setResult(RESULT_OK, resultIntent);
             finish();

@@ -5,4 +5,6 @@
     <string name="button_save">Сохранить</string>
     <string name="edit_text_title_hint">Заголовок</string>
     <string name="edit_text_body_hint">Текст заметки</string>
+    <string name="enter_password">Введите пароль</string>
+    <string name="confirm">Подтвердить</string>
 </resources>

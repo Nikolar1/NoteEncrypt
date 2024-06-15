@@ -4,4 +4,6 @@
     <string name="edit_text_title_hint">Title</string>
     <string name="button_save">Save</string>
     <string name="edit_text_body_hint">Note Body</string>
+    <string name="enter_password">Enter Password</string>
+    <string name="confirm">Confirm</string>
 </resources>

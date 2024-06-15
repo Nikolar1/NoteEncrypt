@@ -5,4 +5,6 @@
     <string name="button_save">Сачувај</string>
     <string name="edit_text_title_hint">Наслов</string>
     <string name="edit_text_body_hint">Садржај белешке</string>
+    <string name="enter_password">Унесите лозинку</string>
+    <string name="confirm">Потврдите</string>
 </resources>

@@ -1,2 +1,2 @@
 # NoteEncrypt
-An android apps for taking an keeping encrypted notes
+An android app for taking and keeping encrypted notes

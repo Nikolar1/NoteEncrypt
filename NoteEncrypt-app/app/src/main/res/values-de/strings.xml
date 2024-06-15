@@ -5,4 +5,6 @@
     <string name="edit_text_title_hint">Titel</string>
     <string name="button_save">Speichern</string>
     <string name="edit_text_body_hint">Notizinhalt</string>
+    <string name="enter_password">Passwort eingeben</string>
+    <string name="confirm">Bestätigen</string>
 </resources>
