@@ -50,7 +50,7 @@ public class NoteActivity extends AppCompatActivity {
             note.setBody(editTextBody.getText().toString());
             Intent resultIntent = new Intent();
             resultIntent.putExtra("note", note.toString());
-            ;
+
             if (position != -1) {
                 resultIntent.putExtra("position", position);
             }

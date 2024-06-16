@@ -24,6 +24,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.zip.DeflaterOutputStream;
+import java.util.zip.InflaterInputStream;
 
 import javax.crypto.Cipher;
 import javax.crypto.CipherInputStream;
@@ -45,7 +47,8 @@ public class FileUtils {
                 for (Note note : notes) {
                     noteData.append(note).append("\n");
                 }
-                CipherOutputStream cipherOutputStream = new CipherOutputStream(fileOutputStream, cipher);
+                DeflaterOutputStream deflaterOutputStream = new DeflaterOutputStream(fileOutputStream);
+                CipherOutputStream cipherOutputStream = new CipherOutputStream(deflaterOutputStream, cipher);
                 fileOutputStream.write(iv);
                 cipherOutputStream.write(noteData.toString().getBytes());
 
@@ -112,7 +115,8 @@ public class FileUtils {
         fileInputStream.read(fileIv);
         Cipher cipher = EncryptionUtils.getInstance().getCipher();
         cipher.init(Cipher.DECRYPT_MODE, EncryptionUtils.getInstance().getKey(), new IvParameterSpec(fileIv));
-        CipherInputStream cipherInputStream = new CipherInputStream(fileInputStream, cipher);
+        InflaterInputStream inflaterInputStream = new InflaterInputStream(fileInputStream);
+        CipherInputStream cipherInputStream = new CipherInputStream(inflaterInputStream, cipher);
         InputStreamReader inputStreamReader = new InputStreamReader(cipherInputStream);
         BufferedReader reader = new BufferedReader(inputStreamReader);
 

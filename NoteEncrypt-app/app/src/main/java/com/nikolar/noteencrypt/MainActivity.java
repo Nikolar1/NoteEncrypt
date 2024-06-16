@@ -136,6 +136,8 @@ public class MainActivity extends AppCompatActivity {
             }else {
                 logger.log(Level.SEVERE, "Note data is missing");
             }
+        }else  if(resultCode == RESULT_CANCELED) {
+            logger.info("Back button pressed canceling edit");
         }else {
             logger.log(Level.SEVERE, "Something went wrong when returning from note edit, " + resultCode);
         }
