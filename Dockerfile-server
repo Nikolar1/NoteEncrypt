@@ -1,0 +1,13 @@
+FROM maven:3.9.2 AS maven
+LABEL authors="Nikola Radojcic"
+WORKDIR /usr/src/app
+COPY ./NoteEncrypt-server /usr/src/app
+RUN mvn package
+FROM respo/jdk20
+ARG JAR_FILE=noteencrypt-server.jar
+
+WORKDIR /opt/app
+COPY --from=maven /usr/src/app/target/${JAR_FILE} /opt/app/
+COPY ./NoteEncrypt-server/data /opt/app/data
+ENTRYPOINT ["java", "-Xmx10g", "-jar","noteencrypt-server.jar"]
+EXPOSE 8085

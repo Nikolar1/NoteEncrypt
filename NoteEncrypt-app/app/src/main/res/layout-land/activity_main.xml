@@ -4,21 +4,31 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
-
-    <Button
-        android:id="@+id/button_new_note"
+    <LinearLayout
+        android:id="@+id/button_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/button_new_note"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp" />
+        android:layout_centerHorizontal="true">
+        <Button
+            android:id="@+id/button_new_note"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/button_new_note"
+            android:layout_marginTop="16dp" />
+        <Button
+            android:id="@+id/button_note_transfer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/transfer_notes"
+            android:layout_marginTop="16dp" />
+    </LinearLayout>
 
     <ListView
         android:id="@+id/list_view_notes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/button_new_note"
+        android:layout_below="@id/button_layout"
         android:layout_marginTop="16dp" />
 
 </RelativeLayout>

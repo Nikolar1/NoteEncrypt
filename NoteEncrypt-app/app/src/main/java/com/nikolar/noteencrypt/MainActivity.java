@@ -39,7 +39,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        ActivityResultLauncher<Intent> noteTransferActivity = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                handleNoteTransfer(result.getResultCode(), result.getData());
+        });
         activityResultLauncher= new HashMap<>();
         activityResultLauncher.put(NoteActions.NEW, registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
@@ -59,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
             notes = FileUtils.loadNotes(this);
             notes.sort(Comparator.comparing(Note::getModifiedOn).reversed());
         } catch (FileNotFoundException e){
-          notes = new LinkedList<>();
+            notes = new LinkedList<>();
         } catch (IOException e) {
             logger.log(Level.SEVERE, "Failed to load notes", e);
         } catch (InvalidAlgorithmParameterException|InvalidKeyException e){
@@ -90,6 +94,18 @@ public class MainActivity extends AppCompatActivity {
             intent.putExtra("position", position);
             launchActivity(intent, NoteActions.EDIT);
         });
+        Button buttonNoteTransfer = findViewById(R.id.button_note_transfer);
+        buttonNoteTransfer.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, ServerExchangeActivity.class);
+            intent.putStringArrayListExtra(
+                    "notes",
+                    notes.stream()
+                            .map(Note::toString)
+                            .collect(Collectors.toCollection(ArrayList::new))
+            );
+
+            noteTransferActivity.launch(intent);
+        });
     }
 
     private void launchActivity(Intent intent, NoteActions action){
@@ -101,6 +117,37 @@ public class MainActivity extends AppCompatActivity {
             arl.launch(intent);
         else
             logger.log(Level.SEVERE, "Could find activityResultLauncher for requested action.");
+    }
+
+    private  void handleNoteTransfer(int resultCode, Intent data){
+        if (resultCode == RESULT_OK) {
+            List<String> noteStrings = data.getStringArrayListExtra("notes");
+            if (noteStrings == null) {
+                logger.log(Level.SEVERE, "Notes weren't passed");
+                setResult(RESULT_CANCELED);
+                finish();
+            } else if (!noteStrings.isEmpty()) {
+                notes = noteStrings.stream()
+                        .map(Note::fromString)
+                        .filter(Optional::isPresent)
+                        .map(Optional::get)
+                        .collect(Collectors.toList());
+            } else {
+                notes = new ArrayList<>();
+            }
+            logger.info("Saving notes");
+            FileUtils.saveNotes(this, notes);
+            notes.sort(Comparator.comparing(Note::getModifiedOn).reversed());
+            noteTitles.clear();
+            noteTitles.addAll(
+                    notes.stream()
+                            .map(Note::getTitle)
+                            .collect(Collectors.toList())
+            );
+            adapter.notifyDataSetChanged();
+        }else {
+            logger.log(Level.WARNING, "Non ok result after note exchange: " + resultCode);
+        }
     }
 
     private void handleNoteData(NoteActions action, int resultCode, Intent data) {

@@ -7,4 +7,9 @@
     <string name="edit_text_body_hint">Садржај белешке</string>
     <string name="enter_password">Унесите лозинку</string>
     <string name="confirm">Потврдите</string>
+    <string name="transfer_notes">Transfer Notes</string>
+    <string name="server_address">Server address</string>
+    <string name="send_notes">Send notes</string>
+    <string name="request_notes">Request notes</string>
+    <string name="set_address">Set address</string>
 </resources>

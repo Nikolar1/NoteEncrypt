@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <EditText
+        android:id="@+id/edit_text_server_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_above="@+id/button_set_address"
+        android:hint="@string/server_address"
+        android:inputType="text"
+        android:autofillHints="" />
+
+    <Button
+        android:id="@+id/button_set_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_above="@+id/button_send_notes"
+        android:text="@string/set_address" />
+
+    <Button
+        android:id="@+id/button_send_notes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_above="@+id/button_request_notes"
+        android:text="@string/send_notes" />
+
+    <Button
+        android:id="@+id/button_request_notes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:text="@string/request_notes" />
+</RelativeLayout>
