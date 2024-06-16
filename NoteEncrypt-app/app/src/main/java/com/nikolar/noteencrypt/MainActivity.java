@@ -57,7 +57,6 @@ public class MainActivity extends AppCompatActivity {
                     handleNoteData(NoteActions.EDIT, result.getResultCode(), result.getData());
                 })
         );
-
         try {
             logger.info("Loading notes...");
             notes = FileUtils.loadNotes(this);
@@ -152,7 +151,23 @@ public class MainActivity extends AppCompatActivity {
 
     private void handleNoteData(NoteActions action, int resultCode, Intent data) {
         logger.info("Handling NoteActivity results");
-        if (resultCode == RESULT_OK && data != null && data.hasExtra("note")) {
+        if (resultCode == RESULT_OK && data.getBooleanExtra("deleteNote", false)) {
+            int position = data.getIntExtra("position", -1);
+            if (position != -1) {
+                logger.info("Deleting note");
+                notes.remove(position);
+                FileUtils.saveNotes(this, notes);
+                notes.sort(Comparator.comparing(Note::getModifiedOn).reversed());
+                noteTitles.clear();
+                noteTitles.addAll(
+                        notes.stream()
+                                .map(Note::getTitle)
+                                .collect(Collectors.toList())
+                );
+                adapter.notifyDataSetChanged();
+            } else
+                logger.log(Level.SEVERE, "Delete requested but position missing");
+        }else if (resultCode == RESULT_OK && data != null && data.hasExtra("note")) {
             Optional<Note> note = Note.fromString(data.getStringExtra("note"));
             if (note.isPresent()) {
                 if (action == NoteActions.NEW) {

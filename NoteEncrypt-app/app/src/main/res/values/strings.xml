@@ -11,4 +11,5 @@
     <string name="send_notes">Send notes</string>
     <string name="request_notes">Request notes</string>
     <string name="set_address">Set address</string>
+    <string name="delete">Delete</string>
 </resources>

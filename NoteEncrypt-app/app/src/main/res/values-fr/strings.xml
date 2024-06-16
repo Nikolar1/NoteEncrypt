@@ -7,9 +7,10 @@
     <string name="edit_text_body_hint">Corps de la note</string>
     <string name="enter_password">Entrez le mot de passe</string>
     <string name="confirm">Confirmer</string>
-    <string name="transfer_notes">Transfer Notes</string>
-    <string name="server_address">Server address</string>
-    <string name="send_notes">Send notes</string>
-    <string name="request_notes">Request notes</string>
-    <string name="set_address">Set address</string>
+    <string name="transfer_notes">Transférer les notes</string>
+    <string name="server_address">Adresse du serveur</string>
+    <string name="send_notes">Envoyer les notes</string>
+    <string name="request_notes">Demander les notes</string>
+    <string name="set_address">Définir l\'adresse</string>
+    <string name="delete">Supprimer</string>
 </resources>

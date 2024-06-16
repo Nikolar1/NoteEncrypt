@@ -30,6 +30,7 @@ public class NoteActivity extends AppCompatActivity {
         editTextTitle = findViewById(R.id.edit_text_title);
         editTextBody = findViewById(R.id.edit_text_body);
         Button buttonSave = findViewById(R.id.button_save);
+        Button buttonDelete = findViewById(R.id.button_delete);
 
         Intent intent = getIntent();
         logger.info("Checking if there is old note data to display");
@@ -43,6 +44,21 @@ public class NoteActivity extends AppCompatActivity {
                 position = -1;
             }
         }
+
+        buttonDelete.setOnClickListener(v -> {
+            logger.info("Delete button clicked closing activity and returning result");
+            Intent resultIntent = new Intent();
+
+            if (position != -1) {
+                resultIntent.putExtra("position", position);
+                resultIntent.putExtra("deleteNote", true);
+                setResult(RESULT_OK, resultIntent);
+                finish();
+            }else {
+                setResult(RESULT_CANCELED);
+                finish();
+            }
+        });
 
         buttonSave.setOnClickListener(v -> {
             logger.info("Save button clicked closing activity and returning result");
